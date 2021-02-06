@@ -1,0 +1,291 @@
+/* Estilos globales */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Fuentes */
+@font-face {
+  font-family: "Ruhl";
+  src: url("./fonts/FrankRuhlLibre-Regular.ttf");
+}
+@font-face {
+  font-family: "Ruhl Medium";
+  src: url("./fonts/FrankRuhlLibre-Medium.ttf");
+}
+@font-face {
+  font-family: "Vibes";
+  src: url("./fonts/GreatVibes-Regular.ttf");
+}
+
+html {
+  font-size: 62.5%;
+  /* creando una variable 
+  --header1: 4rem
+   20 px como base pero sumado 1% del width  */
+  --header1: calc(2rem + 1vw);
+  --header2: calc(3.5rem + 1vw);
+  --header3: calc(3rem + 1vw);
+  --header4: calc(2.4rem + 1vw);
+  --text: calc(1.5rem + 1vw);
+  --big: calc(2.4rem + 1vw);
+  --special-color: #906272;
+  --background-color: #414141;
+  --gray-text: #525252;
+}
+
+h1 {
+  /* Impelementando la variable */
+  font-size: var(--header1);
+}
+
+li,
+button,
+label,
+input,
+a,
+p {
+  font-size: var(--text);
+}
+
+h2 {
+  font-size: var(--header2);
+}
+
+h3 {
+  font-size: var(--header3);
+  font-weight: normal;
+}
+
+h4,
+h5 {
+  font-size: var(--header4);
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+ul {
+  list-style: none;
+}
+
+/* clase auxiliar para no repetir codigo siempre */
+.flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+body {
+  font-family: "Ruhl", sans-serif;
+  animation: opening 1s ease-in-out;
+}
+
+h1 {
+  font-family: "Vibes", sans-serif;
+}
+
+.main-head {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  /* la sombra se solapaba con el linear-gradient() asi que
+  lo puse por encima con el z-index y (como seguia sin verse) le puse
+  position relative */
+  z-index: 2;
+  position: relative;
+}
+
+nav {
+  /* esto es siempre, ya lo puedo tomar como ejemplo */
+  width: 90%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  min-height: 10vh;
+  padding: 2rem 0rem;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: space-around;
+  flex: 1 1 20rem;
+}
+
+#logo {
+  flex: 1 1 20rem;
+}
+
+.hero {
+  min-height: 90vh;
+  width: 95%;
+  margin: 0 0 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+
+.hero-introduction {
+  flex: 2 1 40rem;
+  text-align: center;
+}
+.hero-introduction p {
+  padding: 5rem 10rem;
+}
+.hero-introduction h2 {
+  /* Es a considerar que cuando se achica la altura de la pagina
+    no se quede pegado el h2 al nav bar */
+  padding-top: 2rem;
+}
+.hero-introduction a {
+  /* lo mismo que con el h2, pero para el bottom*/
+  padding: 2rem 8rem;
+  border: 3px solid black;
+  margin-bottom: 4rem;
+}
+
+.hero-images {
+  flex: 1 1 30rem;
+  background: linear-gradient(#dad8dd, #dad1d4);
+  position: relative;
+  z-index: 1;
+}
+
+.hero-elena {
+  width: 100%;
+  height: 100%;
+  /* esto lo que hace es que la imagen no se deforme */
+  object-fit: cover;
+}
+
+.plant {
+  position: absolute;
+  bottom: 0;
+  left: -20%;
+  z-index: -1;
+  /* si pongo a la animation como forwards, una vez que termina
+  de hacerla, se mantiene */
+  animation: plant-entrance 1.5s ease-in-out 0.5s forwards,
+    plant-shake 2.5s infinite ease alternate-reverse 2s;
+  /* recordando que el rotate te da el EJE por el que va a rotar */
+  transform: translateY(10%) rotateZ(-10deg) rotatex(180deg);
+  /* le tengo q poner de donde tiene q empezar, porque si no lo decide el prograa */
+  transform-origin: bottom;
+  max-height: 80%;
+}
+
+.plant2 {
+  left: 40%;
+}
+
+/* ANIMATIONS */
+@keyframes opening {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+@keyframes plant-entrance {
+  from {
+    transform: translateY(10%) rotateZ(-10deg) rotatex(-90deg);
+  }
+
+  to {
+    transform: translateY(0%) rotateZ(0deg) rotatex(0deg);
+  }
+}
+
+@keyframes plant-shake {
+  from {
+    transform: rotateZ(-5deg);
+  }
+  to {
+    transform: rotateZ(5);
+  }
+}
+
+.burger,
+.menu-check {
+  display: none;
+}
+
+/* MEDIA QUERIES */
+@media screen and (max-width: 842px) {
+  .hero {
+    width: 100%;
+  }
+
+  .hero-introduction {
+    padding: 5rem 3rem;
+  }
+
+  .burger {
+    position: relative;
+    display: block;
+  }
+
+  .burger span {
+    /* Los spans son display INLINE por default, por eso
+    tenemos que ponerlos como block */
+    display: block;
+    /* este margin hace la magia de que aparezcan las 3 lineas separadas */
+    margin: 0.5rem 0rem;
+    /* alto y largo de la linea de la hamburguesa */
+    padding: 0.2rem 2rem;
+    background: var(--gray-text);
+    transition: all 0.9s ease;
+  }
+
+  .nav-links a {
+    color: white;
+    font-size: var(--header3);
+    text-decoration: underline;
+  }
+
+  .nav-links {
+    background: var(--background-color);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 100%;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease;
+  }
+
+  .menu-check {
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    transform: translate(5%, -50%);
+    width: 5rem;
+    height: 5rem;
+    cursor: pointer;
+    opacity: 0;
+    z-index: 100;
+    display: block;
+  }
+  /* if menu-check esta checked, quiero q algo pase con .nav-links */
+  .menu-check:checked + .nav-links {
+    transform: translateX(-100%);
+  }
+  .menu-check:checked ~ .burger span {
+    background: white;
+  }
+  .menu-check:checked ~ .burger span:nth-child(1) {
+    transform: rotateZ(45deg) translateY(300%);
+  }
+  .menu-check:checked ~ .burger span:nth-child(3) {
+    transform: rotateZ(-45deg) translateY(-300%);
+  }
+  .menu-check:checked ~ .burger span:nth-child(2) {
+    opacity: 0;
+  }
+}
